@@ -12,7 +12,7 @@ function App() {
    return (
       <Provider store={store}>
          <Main>
-            <BrowserRouter basename="/Training-Timer">
+            <BrowserRouter>
                <Routes>
                   <Route index element={<StartPage />} />
                   <Route path="/presets" element={<Presets />} />
