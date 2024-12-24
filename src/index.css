@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+   .failed-save {
+      background-color: #fecaca;
+      color: #525252;
+      cursor: auto;
+   }
+
+   .failed-save-hover {
+      background-color: #ffd7d7;
+      color: #525252;
+      box-shadow: 0 0 50px #ffd7d7;
+   }
+}
+
+* {
+   font-family: 'Nunito Sans', sans-serif;
+}
