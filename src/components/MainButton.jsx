@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 function MainButton({
    children,
    setPath,
-   emoji,
    padding,
    textSize,
    handler,
@@ -23,9 +22,8 @@ function MainButton({
             onClick={handler}
             ref={element}
          >
-            {emoji}{' '}
             <span
-               className={`pl-2 ${textSize ? textSize : defaultTextSize}`}
+               className={`${textSize ? textSize : defaultTextSize}`}
                style={{ fontFamily: 'Iceland' }}
             >
                {children}

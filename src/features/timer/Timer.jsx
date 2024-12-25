@@ -19,6 +19,8 @@ import {
    workoutFinished,
    resetScreens,
 } from './timerSlice';
+import { GrPauseFill } from 'react-icons/gr';
+import { IoPlaySharp } from 'react-icons/io5';
 
 import useCountdown from '../../hooks/useCountdown';
 import BackButton from '../../components/BackButton';
@@ -205,12 +207,20 @@ function Timer() {
             >
                <div className="flex justify-between">
                   <button
-                     className="self-start pt-3 pl-5 hover:opacity-50 transition"
+                     className="pt-3 pl-6 hover:opacity-50 transition"
                      onClick={() => setIsPaused(!isPaused)}
                   >
-                     {isPaused ? '▶' : '❚❚'}
+                     {isPaused ? (
+                        <span className="text-[2.1rem]">
+                           <GrPauseFill />
+                        </span>
+                     ) : (
+                        <span className="text-[2.5rem]">
+                           <IoPlaySharp />
+                        </span>
+                     )}
                   </button>
-                  <span className="self-end pt-3">
+                  <span className="self-end pr-5 pt-1">
                      <BackButton />
                   </span>
                </div>

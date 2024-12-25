@@ -6,6 +6,7 @@ import {
    loadSelectedWorkout,
    deletePreset,
 } from '../features/workouts/workoutSlice';
+import { FaHouse } from 'react-icons/fa6';
 
 import MainButton from './MainButton';
 import BackButton from './BackButton';
@@ -24,14 +25,16 @@ function Presets() {
             <span className="pt-5 sm:pt-6 px-5 text-3xl sm:text-2xl opacity-90">
                ⭐ Your presets
             </span>
-            <div className="pt-5 px-5 sm:px-2 sm:text-3xl">
+            <div className="flex items-center gap-5 sm:gap-4 pt-5 px-5 sm:px-2">
                <Link
                   to={'/'}
-                  className="pr-2 opacity-90 hover:opacity-50 transition cursor-pointer"
+                  className="opacity-90 hover:opacity-50 transition cursor-pointer sm:text-3xl "
                >
-                  🏠︎
+                  <FaHouse />
                </Link>
-               <BackButton opacity={'opacity-90'} />
+               <span className="self-start">
+                  <BackButton />
+               </span>
             </div>
          </div>
 

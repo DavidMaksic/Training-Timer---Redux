@@ -55,7 +55,9 @@ function CreateWorkout() {
 
    return (
       <form className="flex flex-col gap-10 sm:gap-6">
-         <BackButton setPath="/" />
+         <span className="self-end px-5 pt-2">
+            <BackButton setPath="/" />
+         </span>
          <PresetInput />
          <Inputs />
          <MainButton
