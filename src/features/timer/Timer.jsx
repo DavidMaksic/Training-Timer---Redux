@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import {
    decreaseTimerSet,
    increaseTimerSet,
@@ -35,7 +35,7 @@ function calcAllSeconds(time) {
 }
 
 function Timer() {
-   const PREPARE_SEC = 2;
+   const PREPARE_SEC = 5;
    const { id } = useParams();
 
    const workoutDispatch = useDispatch();
@@ -192,37 +192,40 @@ function Timer() {
       }
       workoutDispatch(increaseTimerSet());
    }
+   const location = useLocation();
 
    return (
       <>
          {!isFinished ? (
             <div
-               className={`flex flex-col ${isPreparing && 'bg-yellow-500 '} ${
-                  isWorking && 'bg-green-400'
-               } ${isResting && 'bg-violet-400'} ${
-                  isPreparing && isPaused ? 'bg-yellowPaused' : ''
-               } ${isWorking && isPaused ? 'bg-green-500' : ''} ${
-                  isResting && isPaused ? 'bg-violetPaused' : ''
+               className={`flex flex-col sm:gap-28 ${
+                  isPreparing && 'bg-yellow-500 '
+               } ${isWorking && 'bg-green-400'} ${
+                  isResting && 'bg-violet-400'
+               } ${isPreparing && isPaused ? 'bg-yellowPaused' : ''} ${
+                  isWorking && isPaused ? 'bg-green-500' : ''
+               } ${isResting && isPaused ? 'bg-violetPaused' : ''} ${
+                  location.pathname.includes('/timer')
+                     ? 'sm:pt-[2rem] sm:pb-[20rem]'
+                     : ''
                }`}
             >
                <div className="flex justify-between">
                   <button
-                     className="pt-3 pl-6 hover:opacity-50 transition"
+                     className="pt-3 sm:pt-0 pl-6 hover:opacity-50 transition"
                      onClick={() => setIsPaused(!isPaused)}
                   >
                      {isPaused ? (
-                        <span className="text-[2.1rem]">
-                           <GrPauseFill />
+                        <span className="text-[2.5rem] sm:text-[2rem]">
+                           <IoPlaySharp />
                         </span>
                      ) : (
-                        <span className="text-[2.5rem]">
-                           <IoPlaySharp />
+                        <span className="text-[2.1rem] sm:text-[1.6rem]">
+                           <GrPauseFill />
                         </span>
                      )}
                   </button>
-                  <span className="self-end pr-5 pt-1">
-                     <BackButton />
-                  </span>
+                  <BackButton styles="self-end pr-5 pt-1" />
                </div>
                <div className="flex flex-col items-center justify-center gap-8 pb-20">
                   <div className="flex gap-10 sm:gap-6 items-center">
@@ -268,7 +271,7 @@ function Timer() {
             </div>
          ) : (
             <>
-               <div className="flex flex-col p-12 sm:p-10 bg-gradient-to-tl from-[#9e9e9e] to-gray-300 text-center">
+               <div className="flex flex-col p-12 sm:p-10 bg-gradient-to-tl from-[#9e9e9e] to-gray-300 text-center rounded-t-3xl">
                   <div className="flex items-center justify-center sm:gap-4">
                      <img className="w-1/3 opacity-75" src={photo} alt="Logo" />
                      <h2 className="font-black text-neutral-700 italic sm:text-3xl">
@@ -276,9 +279,14 @@ function Timer() {
                      </h2>
                   </div>
                </div>
-               <MainButton topMargin={'mt-0'} handler={handleWorkoutExit}>
-                  Return »
-               </MainButton>
+               <span>
+                  <MainButton
+                     styles="text-5xl sm:text-[2.6rem] p-6 rounded-b-3xl"
+                     handler={handleWorkoutExit}
+                  >
+                     Return »
+                  </MainButton>
+               </span>
             </>
          )}
       </>

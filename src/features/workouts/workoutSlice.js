@@ -50,7 +50,7 @@ const workoutSlice = createSlice({
       },
       restDecrease(state) {
          if (state.rest === 0.5) return;
-         state.rest -= 1;
+         state.rest -= 0.5;
       },
       restIncrease(state) {
          state.rest += 0.5;

@@ -1,34 +1,15 @@
 import { Link } from 'react-router-dom';
 
-function MainButton({
-   children,
-   setPath,
-   padding,
-   textSize,
-   handler,
-   topMargin,
-   element,
-}) {
-   const defaultPadding = 'p-8';
-   const defaultTextSize = 'text-5xl';
-   const defaultTopMargin = 'mt-6';
-
+function MainButton({ children, setPath, handler, element, styles }) {
    return (
-      <Link to={setPath} className="w-full">
-         <button
-            className={`bg-lime-200 w-full hover:bg-lime-100 transition font-bold hover:shadow-lime ${
-               padding ? padding : defaultPadding
-            } ${topMargin ? topMargin : defaultTopMargin}`}
-            onClick={handler}
-            ref={element}
-         >
-            <span
-               className={`${textSize ? textSize : defaultTextSize}`}
-               style={{ fontFamily: 'Iceland' }}
-            >
-               {children}
-            </span>
-         </button>
+      <Link
+         className={`bg-lime-200 w-full flex items-center justify-center text-center hover:bg-lime-100 transition font-bold hover:shadow-lime ${styles}`}
+         to={setPath}
+         onClick={handler}
+         ref={element}
+         style={{ fontFamily: 'Iceland' }}
+      >
+         {children}
       </Link>
    );
 }

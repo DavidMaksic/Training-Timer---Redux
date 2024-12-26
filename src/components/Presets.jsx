@@ -10,6 +10,7 @@ import { FaHouse } from 'react-icons/fa6';
 
 import MainButton from './MainButton';
 import BackButton from './BackButton';
+import { BsLightningCharge } from 'react-icons/bs';
 
 function Presets() {
    const { workouts } = useSelector((store) => store.workouts);
@@ -25,21 +26,19 @@ function Presets() {
             <span className="pt-5 sm:pt-6 px-5 text-3xl sm:text-2xl opacity-90">
                ⭐ Your presets
             </span>
-            <div className="flex items-center gap-5 sm:gap-4 pt-5 px-5 sm:px-2">
+            <div className="flex items-center gap-5 sm:gap-4 pt-3 sm:pt-5 pr-5 sm:pr-4">
                <Link
                   to={'/'}
                   className="opacity-90 hover:opacity-50 transition cursor-pointer sm:text-3xl "
                >
                   <FaHouse />
                </Link>
-               <span className="self-start">
-                  <BackButton />
-               </span>
+               <BackButton styles="self-start" />
             </div>
          </div>
 
          <ul
-            className={`px-10 sm:px-3 pt-10 pb-8 grid grid-cols-2 gap-6 sm:gap-3 ${
+            className={`px-10 sm:px-8 pt-10 pb-8 grid grid-cols-2 sm:grid-cols-1 gap-6 ${
                workouts.length ? '' : 'h-80'
             }`}
          >
@@ -59,7 +58,10 @@ function Presets() {
             )}
          </ul>
 
-         <MainButton setPath="/createworkout">
+         <MainButton
+            setPath="/createworkout"
+            styles=" text-5xl sm:text-[2.6rem] p-8 sm:p-5 mt-6 sm:mt-4"
+         >
             {workouts.length
                ? 'Create another workout »'
                : 'Create your first workout »'}
@@ -84,7 +86,7 @@ function PresetItem({ preset, workouts }) {
 
    return (
       <li className="bg-neutral-300 grid grid-rows-1 rounded-3xl text-2xl sm:text-xl overflow-hidden">
-         <div className="pt-4 px-6 sm:px-4 grid grid-rows-1 gap-2">
+         <div className="pt-4 px-6 sm:px-8 sm:pt-7 grid grid-rows-1 gap-2 sm:gap-3">
             <div className="flex justify-between gap-2">
                <h2 className="font-bold text-3xl">{name}</h2>
                <button
@@ -118,12 +120,12 @@ function PresetItem({ preset, workouts }) {
          </div>
          <MainButton
             setPath={`/timer/${id}`}
-            emoji="⮞"
-            padding="p-4"
-            textSize="text-4xl"
-            topMargin="mt-4 sm:mt-4"
+            styles="text-4xl p-3 mt-5"
             handler={() => handleSelectWorkout(id)}
          >
+            <span className="text-[1.6rem] inline-block pr-2 align-[-5px]">
+               <BsLightningCharge />
+            </span>
             Start
          </MainButton>
       </li>

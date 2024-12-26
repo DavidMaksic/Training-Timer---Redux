@@ -11,8 +11,8 @@ import CreateWorkout from './features/workouts/CreateWorkout';
 function App() {
    return (
       <Provider store={store}>
-         <Main>
-            <BrowserRouter basename="/Training-Timer/">
+         <BrowserRouter basename="/Training-Timer/">
+            <Main>
                <Routes>
                   <Route index element={<StartPage />} />
                   <Route path="/presets" element={<Presets />} />
@@ -20,8 +20,8 @@ function App() {
                   <Route path="/timer" element={<Timer />} />
                   <Route path="/timer/:id" element={<Timer />} />
                </Routes>
-            </BrowserRouter>
-         </Main>
+            </Main>
+         </BrowserRouter>
       </Provider>
    );
 }

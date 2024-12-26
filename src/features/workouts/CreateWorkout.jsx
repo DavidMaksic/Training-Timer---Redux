@@ -55,15 +55,14 @@ function CreateWorkout() {
 
    return (
       <form className="flex flex-col gap-10 sm:gap-6">
-         <span className="self-end px-5 pt-2">
-            <BackButton setPath="/" />
-         </span>
+         <BackButton setPath="/" styles="self-end px-5 pt-2 sm:pt-4" />
          <PresetInput />
          <Inputs />
          <MainButton
             setPath={name && `/presets`}
             handler={handleCreateWorkout}
             element={btnEl}
+            styles="text-5xl sm:text-[2.8rem] p-8 sm:p-6 mt-6"
          >
             {!searchEmpty ? '+ Save workout' : 'No name found!'}
          </MainButton>
