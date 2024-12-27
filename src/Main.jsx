@@ -16,12 +16,10 @@ function Main({ children }) {
                   : 'translate-y-[-60%]'
             }  ${
                location.pathname.includes('/timer')
-                  ? 'sm:w-full sm:h-min sm:top-[64%] overflow-y-visible'
+                  ? 'sm:w-full sm:h-min sm:top-[64%] '
                   : ''
             } ${
-               location.pathname.includes('/finish-screen')
-                  ? 'overflow-y-visible'
-                  : 'sm:h-full'
+               location.pathname.includes('/finish-screen') ? '' : 'sm:h-full'
             }`}
          >
             {location.pathname.includes('/timer') ||
