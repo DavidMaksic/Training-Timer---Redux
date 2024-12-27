@@ -13,7 +13,7 @@ function Main({ children }) {
          <div
             className={`fixed overflow-y-auto no-scrollbar sm:h-full top-2/4 left-2/4 translate-x-[-50%] translate-y-[-60%] sm:translate-y-[-50%] w-1/3 xl:w-1/2 md:w-4/5 sm:w-11/12 mx-auto pt-2 ${
                workouts.length >= 3 && location.pathname.includes('/presets')
-                  ? 'h-full translate-y-[-50%] sm:pb-6 pt-12'
+                  ? 'h-full translate-y-[-47%] sm:pb-6 pt-12'
                   : ''
             } ${
                workouts.length >= 5 && location.pathname.includes('/presets')
