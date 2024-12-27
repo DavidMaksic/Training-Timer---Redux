@@ -6,14 +6,13 @@ function Main({ children }) {
    const { isFinished } = useSelector((store) => store.timer);
    const { workouts } = useSelector((store) => store.workouts);
    const location = useLocation();
-   console.log(workouts.length >= 5 && location.pathname.includes('/presets'));
 
    return (
       <div className="min-h-screen sm:pt-5 bg-gradient-to-br from-gray-800 to-neutral-600 selection:bg-lime-600 selection:text-white text-4xl text-neutral-700">
          <div
             className={`fixed overflow-y-auto no-scrollbar sm:h-full top-2/4 left-2/4 translate-x-[-50%] translate-y-[-60%] sm:translate-y-[-50%] w-1/3 xl:w-1/2 md:w-4/5 sm:w-11/12 mx-auto pt-2 ${
                workouts.length >= 3 && location.pathname.includes('/presets')
-                  ? 'h-full translate-y-[-47%] pb-32 sm:pb-6 pt-4'
+                  ? 'h-full translate-y-[-50%] pb-32 sm:pb-6 pt-4'
                   : ''
             }  ${
                location.pathname.includes('/timer')
