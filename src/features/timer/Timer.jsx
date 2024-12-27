@@ -198,7 +198,7 @@ function Timer() {
       <>
          {!isFinished ? (
             <div
-               className={`flex flex-col sm:gap-28 ${
+               className={`flex flex-col pb-5 gap-8 sm:gap-28 ${
                   isPreparing && 'bg-yellow-500 '
                } ${isWorking && 'bg-green-400'} ${
                   isResting && 'bg-violet-400'
@@ -227,7 +227,7 @@ function Timer() {
                   </button>
                   <BackButton styles="self-end pr-5 pt-1" />
                </div>
-               <div className="flex flex-col items-center justify-center gap-8 pb-20">
+               <div className="flex flex-col items-center justify-center gap-20 sm:gap-8 pb-20">
                   <div className="flex gap-10 sm:gap-6 items-center">
                      <button
                         className="hover:opacity-50 transition"
@@ -245,7 +245,7 @@ function Timer() {
                         ⏭
                      </button>
                   </div>
-                  <span className="text-9xl">
+                  <span className="text-[9.5rem] sm:text-9xl">
                      {mins < 10 && '0'}
                      {mins}
                      {':'}

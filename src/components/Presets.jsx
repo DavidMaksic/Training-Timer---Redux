@@ -38,8 +38,8 @@ function Presets() {
          </div>
 
          <ul
-            className={`px-10 sm:px-8 pt-10 pb-8 grid grid-cols-2 sm:grid-cols-1 gap-6 ${
-               workouts.length ? '' : 'h-80'
+            className={`relative grid sm:grid-cols-1 gap-6 px-10 sm:px-8 pt-10 pb-8 ${
+               workouts.length ? 'grid-cols-2' : 'grid-cols-1'
             }`}
          >
             {workouts.length ? (
@@ -52,8 +52,8 @@ function Presets() {
                   />
                ))
             ) : (
-               <span className="absolute py-24 pl-24 sm:pl-0 opacity-75">
-                  ⛔ No presets found!
+               <span className="opacity-75 justify-self-center py-20 text-center flex flex-col gap-3">
+                  ⛔<span>No presets found!</span>
                </span>
             )}
          </ul>
@@ -86,7 +86,7 @@ function PresetItem({ preset, workouts }) {
 
    return (
       <li className="bg-neutral-300 grid grid-rows-1 rounded-3xl text-2xl sm:text-xl overflow-hidden">
-         <div className="pt-4 px-6 sm:px-8 sm:pt-7 grid grid-rows-1 gap-2 sm:gap-3">
+         <div className="pt-4 px-6 sm:px-8 sm:pt-5 grid grid-rows-1 gap-2 sm:gap-3">
             <div className="flex justify-between gap-2">
                <h2 className="font-bold text-3xl">{name}</h2>
                <button
