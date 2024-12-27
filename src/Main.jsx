@@ -16,12 +16,12 @@ function Main({ children }) {
                   : 'translate-y-[-60%]'
             }  ${
                location.pathname.includes('/timer')
-                  ? 'sm:w-full sm:h-auto sm:top-[64%] overflow-y-visible'
+                  ? 'sm:w-full sm:h-fit sm:top-[64%] overflow-y-visible'
                   : ''
             } ${
                location.pathname.includes('/finish-screen')
                   ? 'overflow-y-visible'
-                  : 'sm:h-auto'
+                  : 'sm:h-fit'
             }`}
          >
             {location.pathname.includes('/timer') ||
