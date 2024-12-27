@@ -37,9 +37,6 @@ const timerSlice = createSlice({
       currentSetDone(state, action) {
          state.finishedSet = action.payload;
       },
-      workoutFinished(state) {
-         state.isFinished = !state.isFinished;
-      },
    },
 });
 
@@ -50,7 +47,6 @@ export const {
    setMins,
    setSeconds,
    currentSetDone,
-   workoutFinished,
    resetScreens,
 } = timerSlice.actions;
 

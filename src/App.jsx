@@ -7,6 +7,7 @@ import StartPage from './features/workouts/StartPage';
 import Presets from './components/Presets';
 import Timer from './features/timer/Timer';
 import CreateWorkout from './features/workouts/CreateWorkout';
+import FinishScreen from './components/FinishScreen';
 
 function App() {
    return (
@@ -19,6 +20,7 @@ function App() {
                   <Route path="/createworkout" element={<CreateWorkout />} />
                   <Route path="/timer" element={<Timer />} />
                   <Route path="/timer/:id" element={<Timer />} />
+                  <Route path="/finish-screen" element={<FinishScreen />} />
                </Routes>
             </Main>
          </BrowserRouter>

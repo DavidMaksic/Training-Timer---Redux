@@ -7,7 +7,6 @@ import {
    decreaseCurrentSet,
    increaseSelectedWorkout,
    decreaseSelectedWorkout,
-   resetSelectedWorkout,
 } from '../workouts/workoutSlice';
 import {
    setMins,
@@ -16,16 +15,12 @@ import {
    toggleWorkingScreen,
    toggleRestingScreen,
    currentSetDone,
-   workoutFinished,
-   resetScreens,
 } from './timerSlice';
 import { GrPauseFill } from 'react-icons/gr';
 import { IoPlaySharp } from 'react-icons/io5';
 
 import useCountdown from '../../hooks/useCountdown';
 import BackButton from '../../components/BackButton';
-import MainButton from '../../components/MainButton';
-import photo from '../../../public/congratulation.png';
 
 function calcAllSeconds(time) {
    const workMins = Math.floor(time);
@@ -37,6 +32,7 @@ function calcAllSeconds(time) {
 function Timer() {
    const PREPARE_SEC = 5;
    const { id } = useParams();
+   const navigate = useNavigate();
 
    const workoutDispatch = useDispatch();
    const timerDispatch = useDispatch();
@@ -44,15 +40,8 @@ function Timer() {
    const { sets, work, rest, selectedWorkout, selectedWorkoutCopy } =
       useSelector((store) => store.workouts);
 
-   const {
-      isPreparing,
-      isWorking,
-      isResting,
-      mins,
-      seconds,
-      finishedSet,
-      isFinished,
-   } = useSelector((store) => store.timer);
+   const { isPreparing, isWorking, isResting, mins, seconds, finishedSet } =
+      useSelector((store) => store.timer);
 
    const {
       startPrepareTimer,
@@ -161,18 +150,9 @@ function Timer() {
       if (isPaused) return;
       if (sets === 0 || selectedWorkoutCopy?.sets === 0) {
          setIsPaused(!isPaused);
-         timerDispatch(workoutFinished());
+         navigate('/finish-screen');
       }
-   }, [sets, isPaused, selectedWorkoutCopy, setIsPaused, timerDispatch]);
-
-   const navigate = useNavigate();
-
-   function handleWorkoutExit() {
-      workoutDispatch(resetSelectedWorkout());
-      timerDispatch(workoutFinished());
-      timerDispatch(resetScreens());
-      navigate(-1);
-   }
+   }, [sets, isPaused, selectedWorkoutCopy, setIsPaused, navigate]);
 
    // - Logic for skipping a set
    function handleDec() {
@@ -195,101 +175,76 @@ function Timer() {
    const location = useLocation();
 
    return (
-      <>
-         {!isFinished ? (
-            <div
-               className={`flex flex-col pb-5 gap-8 sm:gap-28 ${
-                  isPreparing && 'bg-yellow-500 '
-               } ${isWorking && 'bg-green-400'} ${
-                  isResting && 'bg-violet-400'
-               } ${isPreparing && isPaused ? 'bg-yellowPaused' : ''} ${
-                  isWorking && isPaused ? 'bg-green-500' : ''
-               } ${isResting && isPaused ? 'bg-violetPaused' : ''} ${
-                  location.pathname.includes('/timer')
-                     ? 'sm:pt-[2rem] sm:pb-[20rem]'
-                     : ''
-               }`}
+      <div
+         className={`flex flex-col pb-5 gap-8 sm:gap-28 ${
+            isPreparing && 'bg-yellow-500 '
+         } ${isWorking && 'bg-green-400'} ${isResting && 'bg-violet-400'} ${
+            isPreparing && isPaused ? 'bg-yellowPaused' : ''
+         } ${isWorking && isPaused ? 'bg-green-500' : ''} ${
+            isResting && isPaused ? 'bg-violetPaused' : ''
+         } ${
+            location.pathname.includes('/timer')
+               ? 'sm:pt-[2rem] sm:pb-[20rem]'
+               : ''
+         }`}
+      >
+         <div className="flex justify-between">
+            <button
+               className="pt-3 sm:pt-0 pl-6 hover:opacity-50 transition"
+               onClick={() => setIsPaused(!isPaused)}
             >
-               <div className="flex justify-between">
-                  <button
-                     className="pt-3 sm:pt-0 pl-6 hover:opacity-50 transition"
-                     onClick={() => setIsPaused(!isPaused)}
-                  >
-                     {isPaused ? (
-                        <span className="text-[2.5rem] sm:text-[2rem]">
-                           <IoPlaySharp />
-                        </span>
-                     ) : (
-                        <span className="text-[2.1rem] sm:text-[1.6rem]">
-                           <GrPauseFill />
-                        </span>
-                     )}
-                  </button>
-                  <BackButton styles="self-end pr-5 pt-1" />
-               </div>
-               <div className="flex flex-col items-center justify-center gap-20 sm:gap-8 pb-20">
-                  <div className="flex gap-10 sm:gap-6 items-center">
-                     <button
-                        className="hover:opacity-50 transition"
-                        onClick={handleDec}
-                     >
-                        ⏮
-                     </button>
-                     <span className="text-7xl sm:text-6xl">
-                        {id ? selectedWorkoutCopy.sets : sets}x
-                     </span>
-                     <button
-                        className="hover:opacity-50 transition"
-                        onClick={handleInc}
-                     >
-                        ⏭
-                     </button>
-                  </div>
-                  <span className="text-[9.5rem] sm:text-9xl">
-                     {mins < 10 && '0'}
-                     {mins}
-                     {':'}
-                     {seconds < 10 && '0'}
-                     {seconds}
+               {isPaused ? (
+                  <span className="text-[2.5rem] sm:text-[2rem]">
+                     <IoPlaySharp />
                   </span>
-                  <span
-                     className={`text-5xl font-black ${
-                        isPreparing && 'text-yellow-200'
-                     } ${isWorking && 'text-green-200'} ${
-                        isResting && 'text-[#cdc7e8]'
-                     } ${
-                        isPreparing && isPaused ? 'text-yellowTextPaused' : ''
-                     } ${isWorking && isPaused ? 'text-green-300' : ''} ${
-                        isResting && isPaused ? 'text-violetTextPaused' : ''
-                     }`}
-                  >
-                     {isPreparing && 'PREPARE'}
-                     {isWorking && 'WORK'}
-                     {isResting && 'REST'}
+               ) : (
+                  <span className="text-[2.1rem] sm:text-[1.6rem]">
+                     <GrPauseFill />
                   </span>
-               </div>
-            </div>
-         ) : (
-            <>
-               <div className="flex flex-col p-12 sm:p-10 bg-gradient-to-tl from-[#9e9e9e] to-gray-300 text-center rounded-t-3xl">
-                  <div className="flex items-center justify-center sm:gap-4">
-                     <img className="w-1/3 opacity-75" src={photo} alt="Logo" />
-                     <h2 className="font-black text-neutral-700 italic sm:text-3xl">
-                        You finished your workout!
-                     </h2>
-                  </div>
-               </div>
-               <span>
-                  <MainButton
-                     styles="text-5xl sm:text-[2.6rem] p-6 rounded-b-3xl"
-                     handler={handleWorkoutExit}
-                  >
-                     Return »
-                  </MainButton>
+               )}
+            </button>
+            <BackButton styles="self-end pr-5 pt-1" />
+         </div>
+         <div className="flex flex-col items-center justify-center gap-20 sm:gap-8 pb-20">
+            <div className="flex gap-10 sm:gap-6 items-center">
+               <button
+                  className="hover:opacity-50 transition"
+                  onClick={handleDec}
+               >
+                  ⏮
+               </button>
+               <span className="text-7xl sm:text-6xl">
+                  {id ? selectedWorkoutCopy.sets : sets}x
                </span>
-            </>
-         )}
-      </>
+               <button
+                  className="hover:opacity-50 transition"
+                  onClick={handleInc}
+               >
+                  ⏭
+               </button>
+            </div>
+            <span className="text-[9.5rem] sm:text-9xl">
+               {mins < 10 && '0'}
+               {mins}
+               {':'}
+               {seconds < 10 && '0'}
+               {seconds}
+            </span>
+            <span
+               className={`text-5xl font-black ${
+                  isPreparing && 'text-yellow-200'
+               } ${isWorking && 'text-green-200'} ${
+                  isResting && 'text-[#cdc7e8]'
+               } ${isPreparing && isPaused ? 'text-yellowTextPaused' : ''} ${
+                  isWorking && isPaused ? 'text-green-300' : ''
+               } ${isResting && isPaused ? 'text-violetTextPaused' : ''}`}
+            >
+               {isPreparing && 'PREPARE'}
+               {isWorking && 'WORK'}
+               {isResting && 'REST'}
+            </span>
+         </div>
+      </div>
    );
 }
 
