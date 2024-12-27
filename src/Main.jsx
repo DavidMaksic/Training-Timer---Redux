@@ -16,7 +16,7 @@ function Main({ children }) {
                   : 'translate-y-[-60%]'
             }  ${
                location.pathname.includes('/timer')
-                  ? 'sm:w-full sm:top-[47%] overflow-y-visible'
+                  ? 'sm:w-full sm:top-[46%] overflow-y-visible'
                   : ''
             } ${
                location.pathname.includes('/finish-screen')
