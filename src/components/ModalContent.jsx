@@ -1,18 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { resetState, addWorkoutToState } from '../workouts/workoutSlice';
+import {
+   resetState,
+   addWorkoutToState,
+} from '../features/workouts/workoutSlice';
 
-import BackButton from '../../components/BackButton';
-import Inputs from '../../components/Inputs';
-import MainButton from '../../components/MainButton';
-import PresetInput from '../../components/PresetInput';
+import BackButton from './BackButton';
+import MainButton from './MainButton';
+import PresetInput from './PresetInput';
 
-function CreateWorkout() {
+function ModalContent({ closeModal }) {
    const [searchEmpty, setSearchEmpty] = useState(false);
-   const btnEl = useRef(null);
 
-   const dispatch = useDispatch();
    const { name, sets, work, rest } = useSelector((store) => store.workouts);
+   const btnEl = useRef(null);
+   const dispatch = useDispatch();
 
    const handleCreateWorkout = function () {
       const workout = {
@@ -51,20 +53,23 @@ function CreateWorkout() {
    }, [searchEmpty]);
 
    return (
-      <form className="flex flex-col gap-10 sm:gap-6">
-         <BackButton setPath="/" styles="self-end px-5 pt-2 sm:pt-4" />
-         <PresetInput width="w-2/5 sm:w-1/2" inputBgColor="bg-neutral-200 " />
-         <Inputs />
+      <>
+         <div className="bg-neutral-200 flex relative px-20 sm:px-12 pt-24 pb-12 rounded-t-3xl">
+            <PresetInput />
+            <span className="fixed top-1 right-2 sm:right-5 opacity-75">
+               <BackButton handler={closeModal} />
+            </span>
+         </div>
          <MainButton
             setPath={name && `/presets`}
             handler={handleCreateWorkout}
+            styles="text-[2.6rem] sm:text-4xl p-8 sm:p-4 sm:py-6 rounded-b-3xl"
             element={btnEl}
-            styles="text-5xl sm:text-[2.8rem] p-8 sm:p-6 mt-6"
          >
-            {!searchEmpty ? '+ Save workout' : 'No name found!'}
+            {!searchEmpty ? '+ Create new workout' : 'No name found!'}
          </MainButton>
-      </form>
+      </>
    );
 }
 
-export default CreateWorkout;
+export default ModalContent;

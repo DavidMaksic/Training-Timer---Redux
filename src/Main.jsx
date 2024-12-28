@@ -27,7 +27,7 @@ function Main({ children }) {
             {location.pathname.includes('/timer') ||
                location.pathname.includes('/finish-screen') || <Header />}
             <main
-               className={`bg-gradient-to-tl from-[#949494] to-[#c0c0c0] rounded-3xl overflow-hidden flex flex-col shadow-2xl sm:mb-8 ${
+               className={`bg-gradient-to-tl from-[#949494] to-[#c0c0c0] rounded-3xl overflow-hidden flex flex-col sm:mb-8 ${
                   isFinished ? 'gap-0' : 'gap-10'
                } ${location.pathname.includes('/timer') ? 'sm:mb-0' : ''}`}
             >
