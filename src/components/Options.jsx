@@ -5,6 +5,8 @@ import Modal from './Modal';
 function Options() {
    const [modalIsOpened, setModalIsOpened] = useState(false);
 
+   const closeModal = () => setModalIsOpened(false);
+
    return (
       <div className="flex flex-col">
          <div className="flex justify-center mt-1">
@@ -16,9 +18,7 @@ function Options() {
                <span>Save</span>
             </button>
 
-            {modalIsOpened && (
-               <Modal closeModal={() => setModalIsOpened(false)} />
-            )}
+            {modalIsOpened && <Modal closeModal={closeModal} />}
 
             <span className="px-10 sm:px-2 flex items-center text-3xl text-[#7c7c7c]">
                |
