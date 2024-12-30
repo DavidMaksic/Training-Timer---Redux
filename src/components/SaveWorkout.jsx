@@ -9,7 +9,7 @@ import BackButton from './BackButton';
 import MainButton from './MainButton';
 import PresetInput from './PresetInput';
 
-function ModalContent({ closeModal }) {
+function SaveWorkout({ closeModal }) {
    const [searchEmpty, setSearchEmpty] = useState(false);
 
    const { name, sets, work, rest } = useSelector((store) => store.workouts);
@@ -72,4 +72,4 @@ function ModalContent({ closeModal }) {
    );
 }
 
-export default ModalContent;
+export default SaveWorkout;

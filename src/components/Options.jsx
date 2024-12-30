@@ -1,24 +1,29 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
+import SaveWorkout from './SaveWorkout';
 
 function Options() {
-   const [modalIsOpened, setModalIsOpened] = useState(false);
-
-   const closeModal = () => setModalIsOpened(false);
-
    return (
       <div className="flex flex-col">
          <div className="flex justify-center mt-1">
-            <button
-               className="ml-5 sm:ml-[0.7rem] px-8 py-3 my-2 hover:bg-lime-100 transition flex justify-center items-center gap-3 rounded-full text-3xl sm:text-2xl"
-               onClick={() => setModalIsOpened(true)}
-            >
-               <ion-icon name="save-outline"></ion-icon>
-               <span>Save</span>
-            </button>
-
-            {modalIsOpened && <Modal closeModal={closeModal} />}
+            <Modal>
+               <Modal.Open
+                  render={(openModal) => (
+                     <button
+                        className="ml-5 sm:ml-[0.7rem] px-8 py-3 my-2 hover:bg-lime-100 transition flex justify-center items-center gap-3 rounded-full text-3xl sm:text-2xl"
+                        onClick={openModal}
+                     >
+                        <ion-icon name="save-outline"></ion-icon>
+                        <span>Save</span>
+                     </button>
+                  )}
+               />
+               <Modal.Window
+                  render={(closeModal) => (
+                     <SaveWorkout closeModal={closeModal} />
+                  )}
+               ></Modal.Window>
+            </Modal>
 
             <span className="px-10 sm:px-2 flex items-center text-3xl text-[#7c7c7c]">
                |
