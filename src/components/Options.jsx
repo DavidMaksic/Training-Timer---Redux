@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
-import SaveWorkout from './SaveWorkout';
+import CreateWorkout from '../features/workouts/CreateWorkout';
 
 function Options() {
    return (
@@ -20,7 +20,7 @@ function Options() {
                />
                <Modal.Window
                   render={(closeModal) => (
-                     <SaveWorkout closeModal={closeModal} />
+                     <CreateWorkout closeModal={closeModal} />
                   )}
                ></Modal.Window>
             </Modal>
