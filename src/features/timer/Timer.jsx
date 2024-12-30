@@ -20,7 +20,7 @@ import { GrPauseFill } from 'react-icons/gr';
 import { IoPlaySharp } from 'react-icons/io5';
 
 import useCountdown from '../../hooks/useCountdown';
-import BackButton from '../../components/BackButton';
+import BackButton from '../../ui/BackButton';
 
 function calcAllSeconds(time) {
    const workMins = Math.floor(time);

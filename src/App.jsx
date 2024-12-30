@@ -4,10 +4,10 @@ import store from './store';
 
 import Main from './Main';
 import StartPage from './features/workouts/StartPage';
-import Presets from './components/Presets';
+import Presets from './ui/Presets';
 import Timer from './features/timer/Timer';
 import CreateWorkout from './features/workouts/CreateWorkout';
-import FinishScreen from './components/FinishScreen';
+import FinishScreen from './ui/FinishScreen';
 
 function App() {
    return (
