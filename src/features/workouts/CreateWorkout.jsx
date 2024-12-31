@@ -17,7 +17,7 @@ function CreateWorkout({ closeModal }) {
          <>
             <div className="bg-neutral-300 flex relative px-20 sm:px-12 pt-24 pb-12 rounded-t-3xl">
                <PresetInput inputBgColor="bg-neutral-100" />
-               <span className="fixed top-1 right-2 sm:right-5 opacity-75">
+               <span className="fixed top-1 right-2 sm:right-3 opacity-75">
                   <BackButton handler={closeModal} />
                </span>
             </div>

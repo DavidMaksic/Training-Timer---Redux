@@ -28,26 +28,24 @@ const timerSlice = createSlice({
       toggleRestingScreen(state, action) {
          state.isResting = action.payload;
       },
-      setMins(state, action) {
+      setTime(state, action) {
          state.mins = Math.floor(action.payload / 60);
-      },
-      setSeconds(state, action) {
          state.seconds = action.payload % 60;
       },
       currentSetDone(state, action) {
          state.finishedSet = action.payload;
+         if (action.payload) state.isResting = false;
       },
    },
 });
 
 export const {
+   resetScreens,
    togglePrepareScreen,
    toggleWorkingScreen,
    toggleRestingScreen,
-   setMins,
-   setSeconds,
+   setTime,
    currentSetDone,
-   resetScreens,
 } = timerSlice.actions;
 
 export default timerSlice.reducer;
