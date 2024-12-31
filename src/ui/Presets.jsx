@@ -54,7 +54,8 @@ function Presets() {
                ))
             ) : (
                <span className="opacity-75 justify-self-center py-20 text-center flex flex-col gap-3">
-                  ⛔<span>No presets found!</span>
+                  <span className="sm:opacity-50">⛔</span>
+                  <span>No presets found!</span>
                </span>
             )}
          </ul>
@@ -96,11 +97,14 @@ function PresetItem({ preset, workouts }) {
                   ✖️
                </button>
             </div>
+
             <div className="h-[1px] bg-neutral-500"></div>
+
             <div className="flex justify-between">
                <span>Sets</span>
                <span>{sets}</span>
             </div>
+
             <div className="flex justify-between">
                <span>Work</span>
                <span>
@@ -109,6 +113,7 @@ function PresetItem({ preset, workouts }) {
                   {secondsWork}
                </span>
             </div>
+
             <div className="flex justify-between">
                <span>Rest</span>
                <span>
@@ -118,6 +123,7 @@ function PresetItem({ preset, workouts }) {
                </span>
             </div>
          </div>
+
          <MainButton
             setPath={`/timer/${id}`}
             styles="text-4xl p-3 mt-5"
