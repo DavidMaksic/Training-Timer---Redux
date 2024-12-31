@@ -54,7 +54,7 @@ function Presets() {
                ))
             ) : (
                <span className="opacity-75 justify-self-center py-20 text-center flex flex-col gap-3">
-                  <span className="sm:opacity-50">⛔</span>
+                  <span className="sm:opacity-75">⛔</span>
                   <span>No presets found!</span>
                </span>
             )}
