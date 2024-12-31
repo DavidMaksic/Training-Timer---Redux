@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+
 import {
    decreaseTimerSet,
    increaseTimerSet,
@@ -16,18 +17,13 @@ import {
    toggleRestingScreen,
    currentSetDone,
 } from './timerSlice';
+
+import { calcAllSeconds } from '../../utils/helpers';
 import { GrPauseFill } from 'react-icons/gr';
 import { IoPlaySharp } from 'react-icons/io5';
 
 import useCountdown from '../../hooks/useCountdown';
 import BackButton from '../../ui/BackButton';
-
-function calcAllSeconds(time) {
-   const workMins = Math.floor(time);
-   const workSeconds = Math.round((time - workMins) * 100);
-   const allSeconds = workMins * 60 + workSeconds;
-   return allSeconds;
-}
 
 function Timer() {
    const PREPARE_SEC = 5;

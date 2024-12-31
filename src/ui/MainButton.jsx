@@ -5,8 +5,8 @@ function MainButton({ children, setPath, handler, element, styles }) {
       <Link
          className={`bg-lime-200 w-full flex items-center justify-center text-center hover:bg-lime-100 transition font-bold hover:shadow-lime ${styles}`}
          to={setPath}
-         onClick={handler}
          ref={element}
+         onClick={handler}
          style={{ fontFamily: 'Iceland' }}
       >
          {children}

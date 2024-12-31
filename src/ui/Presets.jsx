@@ -11,6 +11,7 @@ import { FaHouse } from 'react-icons/fa6';
 import MainButton from './MainButton';
 import BackButton from './BackButton';
 import { BsLightningCharge } from 'react-icons/bs';
+import useCalcDisplayTime from '../hooks/useCalcDisplayTime';
 
 function Presets() {
    const { workouts } = useSelector((store) => store.workouts);
@@ -71,13 +72,12 @@ function Presets() {
 }
 
 function PresetItem({ preset, workouts }) {
-   const { name, sets, work, rest, id } = preset;
    const dispatch = useDispatch();
-
-   const minsWork = Math.floor(work);
-   const secondsWork = Math.round((work - minsWork) * 60);
-   const minsRest = Math.floor(rest);
-   const secondsRest = Math.round((rest - minsRest) * 60);
+   const { name, sets, work, rest, id } = preset;
+   const { minsWork, minsRest, secondsWork, secondsRest } = useCalcDisplayTime(
+      work,
+      rest
+   );
 
    function handleSelectWorkout(id) {
       const [clickedWorkout] = workouts.filter((item) => item.id === id);

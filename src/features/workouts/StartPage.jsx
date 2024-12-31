@@ -1,7 +1,7 @@
+import { BsLightningChargeFill } from 'react-icons/bs';
 import Options from '../../ui/Options';
 import Inputs from '../../ui/Inputs';
 import MainButton from '../../ui/MainButton';
-import { BsLightningChargeFill } from 'react-icons/bs';
 
 function StartPage() {
    return (

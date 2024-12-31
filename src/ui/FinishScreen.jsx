@@ -1,9 +1,10 @@
 import { useDispatch } from 'react-redux';
-import { resetSelectedWorkout } from '../features/workouts/workoutSlice';
+import { useNavigate } from 'react-router-dom';
 import { resetScreens } from '../features/timer/timerSlice';
+import { resetSelectedWorkout } from '../features/workouts/workoutSlice';
+
 import MainButton from './MainButton';
 import photo from '../../public/congratulation.png';
-import { useNavigate } from 'react-router-dom';
 
 function FinishScreen() {
    const navigate = useNavigate();

@@ -1,6 +1,6 @@
-import Button from './Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+
 import { resetScreens } from '../features/timer/timerSlice';
 import {
    resetState,
@@ -12,15 +12,17 @@ import {
    restIncrease,
 } from '../features/workouts/workoutSlice';
 
-function Inputs({ children }) {
-   const workoutDispatch = useDispatch();
-   const timerDispatch = useDispatch();
-   const { sets, work, rest } = useSelector((store) => store.workouts);
+import useCalcDisplayTime from '../hooks/useCalcDisplayTime';
+import Button from './Button';
 
-   const minsWork = Math.floor(work);
-   const secondsWork = Math.round((work - minsWork) * 60);
-   const minsRest = Math.floor(rest);
-   const secondsRest = Math.round((rest - minsRest) * 60);
+function Inputs({ children }) {
+   const timerDispatch = useDispatch();
+   const workoutDispatch = useDispatch();
+   const { sets, work, rest } = useSelector((store) => store.workouts);
+   const { minsWork, minsRest, secondsWork, secondsRest } = useCalcDisplayTime(
+      work,
+      rest
+   );
 
    useEffect(() => {
       workoutDispatch(resetState());
