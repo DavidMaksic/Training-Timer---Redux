@@ -6,7 +6,7 @@ function Button({ children, setter }) {
 
    return (
       <motion.button
-         className="size-[2.4rem] bg-[#d7e6b6] rounded-full pb-1 hover:bg-lime-100"
+         className="size-[2.6rem] sm:size-[2.5rem] bg-[#d7e6b6] rounded-full pb-1 hover:bg-lime-100"
          type="button"
          onClick={() => dispatch(setter())}
          whileHover={{ scale: 1.1 }}

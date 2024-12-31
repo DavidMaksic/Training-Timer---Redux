@@ -8,10 +8,10 @@ import {
 } from '../features/workouts/workoutSlice';
 import { FaHouse } from 'react-icons/fa6';
 
-import MainButton from './MainButton';
-import BackButton from './BackButton';
+import MainButton from './buttons/MainButton';
+import BackButton from './buttons/BackButton';
 import { BsLightningCharge } from 'react-icons/bs';
-import useCalcDisplayTime from '../hooks/useCalcDisplayTime';
+import { calcInputTime } from '../utils/helpers';
 
 function Presets() {
    const { workouts } = useSelector((store) => store.workouts);
@@ -74,7 +74,7 @@ function Presets() {
 function PresetItem({ preset, workouts }) {
    const dispatch = useDispatch();
    const { name, sets, work, rest, id } = preset;
-   const { minsWork, minsRest, secondsWork, secondsRest } = useCalcDisplayTime(
+   const { minsWork, minsRest, secondsWork, secondsRest } = calcInputTime(
       work,
       rest
    );

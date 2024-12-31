@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { resetScreens } from '../features/timer/timerSlice';
 import { resetSelectedWorkout } from '../features/workouts/workoutSlice';
 
-import MainButton from './MainButton';
+import MainButton from './buttons/MainButton';
 import photo from '../../public/congratulation.png';
 
 function FinishScreen() {

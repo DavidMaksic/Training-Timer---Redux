@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
-import BackButton from '../../ui/BackButton';
+import BackButton from '../../ui/buttons/BackButton';
 import Inputs from '../../ui/Inputs';
-import MainButton from '../../ui/MainButton';
+import MainButton from '../../ui/buttons/MainButton';
 import PresetInput from '../../ui/PresetInput';
 import useCreateWorkout from '../../hooks/useCreateWorkout';
 import useDisableSubmit from '../../hooks/useDisableSubmit';

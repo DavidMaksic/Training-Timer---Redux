@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { calcTotalSeconds } from '../../utils/helpers';
 
 import {
    decreaseTimerSet,
@@ -18,16 +19,15 @@ import {
    currentSetDone,
 } from './timerSlice';
 
-import { calcAllSeconds } from '../../utils/helpers';
-import { GrPauseFill } from 'react-icons/gr';
-import { IoPlaySharp } from 'react-icons/io5';
-
 import useCountdown from '../../hooks/useCountdown';
-import BackButton from '../../ui/BackButton';
+import BackButton from '../../ui/buttons/BackButton';
+import PauseButton from '../../ui/buttons/PauseButton';
+import SkipSetButton from '../../ui/buttons/SkipSetButton';
 
 function Timer() {
    const PREPARE_SEC = 5;
    const { id } = useParams();
+   const location = useLocation();
    const navigate = useNavigate();
 
    const workoutDispatch = useDispatch();
@@ -60,13 +60,14 @@ function Timer() {
       if (prepareSeconds === 0) {
          timerDispatch(togglePrepareScreen(false));
          timerDispatch(toggleWorkingScreen(true));
+         const type = 'work';
 
          if (id) {
-            const allSeconds = calcAllSeconds(selectedWorkout.work);
-            startWorkTimer(allSeconds);
+            const totalSeconds = calcTotalSeconds(selectedWorkout.work, type);
+            startWorkTimer(totalSeconds);
          } else {
-            const allSeconds = calcAllSeconds(work);
-            startWorkTimer(allSeconds);
+            const totalSeconds = calcTotalSeconds(work, type);
+            startWorkTimer(totalSeconds);
          }
 
          const i = setTimeout(() => {
@@ -92,13 +93,14 @@ function Timer() {
       if (workSeconds === 0 && isWorking && !finishedSet) {
          timerDispatch(toggleWorkingScreen(false));
          timerDispatch(toggleRestingScreen(true));
+         const type = 'rest';
 
          if (id) {
-            const allSeconds = calcAllSeconds(selectedWorkout.rest);
-            startRestTimer(allSeconds);
+            const totalSeconds = calcTotalSeconds(selectedWorkout.rest, type);
+            startRestTimer(totalSeconds);
          } else {
-            const allSeconds = calcAllSeconds(rest);
-            startRestTimer(allSeconds);
+            const totalSeconds = calcTotalSeconds(rest, type);
+            startRestTimer(totalSeconds);
          }
       }
    }, [
@@ -145,7 +147,7 @@ function Timer() {
    useEffect(() => {
       if (isPaused) return;
       if (sets === 0 || selectedWorkoutCopy?.sets === 0) {
-         setIsPaused(!isPaused);
+         setIsPaused((isPaused) => !isPaused);
          navigate('/finish-screen');
       }
    }, [sets, isPaused, selectedWorkoutCopy, setIsPaused, navigate]);
@@ -168,57 +170,43 @@ function Timer() {
       }
       workoutDispatch(increaseTimerSet());
    }
-   const location = useLocation();
+
+   // - Complex styles
+
+   const timerStyle = `flex flex-col pb-5 gap-8 sm:gap-28 ${
+      isPreparing && 'bg-yellow-500 '
+   } ${isWorking && 'bg-green-400'} ${isResting && 'bg-violet-400'} ${
+      isPreparing && isPaused ? 'bg-yellowPaused' : ''
+   } ${isWorking && isPaused ? 'bg-green-500' : ''} ${
+      isResting && isPaused ? 'bg-violetPaused' : ''
+   } ${
+      location.pathname.includes('/timer') ? 'sm:pt-[2rem] sm:pb-[20rem]' : ''
+   }`;
+
+   const messageStyle = `text-5xl font-black ${
+      isPreparing && 'text-yellow-200'
+   } ${isWorking && 'text-green-200'} ${isResting && 'text-[#cdc7e8]'} ${
+      isPreparing && isPaused ? 'text-yellowTextPaused' : ''
+   } ${isWorking && isPaused ? 'text-green-300' : ''} ${
+      isResting && isPaused ? 'text-violetTextPaused' : ''
+   }`;
 
    return (
-      <div
-         className={`flex flex-col pb-5 gap-8 sm:gap-28 ${
-            isPreparing && 'bg-yellow-500 '
-         } ${isWorking && 'bg-green-400'} ${isResting && 'bg-violet-400'} ${
-            isPreparing && isPaused ? 'bg-yellowPaused' : ''
-         } ${isWorking && isPaused ? 'bg-green-500' : ''} ${
-            isResting && isPaused ? 'bg-violetPaused' : ''
-         } ${
-            location.pathname.includes('/timer')
-               ? 'sm:pt-[2rem] sm:pb-[20rem]'
-               : ''
-         }`}
-      >
+      <div className={timerStyle}>
          <div className="flex justify-between">
-            <button
-               className="pt-3 sm:pt-0 pl-6 hover:opacity-50 transition"
-               onClick={() => setIsPaused(!isPaused)}
-            >
-               {isPaused ? (
-                  <span className="text-[2.5rem] sm:text-[2rem]">
-                     <IoPlaySharp />
-                  </span>
-               ) : (
-                  <span className="text-[2.1rem] sm:text-[1.6rem]">
-                     <GrPauseFill />
-                  </span>
-               )}
-            </button>
+            <PauseButton setIsPaused={setIsPaused} isPaused={isPaused} />
             <BackButton styles="self-end pr-5 pt-1" />
          </div>
+
          <div className="flex flex-col items-center justify-center gap-20 sm:gap-8 pb-20">
             <div className="flex gap-10 sm:gap-6 items-center">
-               <button
-                  className="hover:opacity-50 transition"
-                  onClick={handleDec}
-               >
-                  ⏮
-               </button>
+               <SkipSetButton handler={handleDec}>⏮</SkipSetButton>
                <span className="text-7xl sm:text-6xl">
                   {id ? selectedWorkoutCopy.sets : sets}x
                </span>
-               <button
-                  className="hover:opacity-50 transition"
-                  onClick={handleInc}
-               >
-                  ⏭
-               </button>
+               <SkipSetButton handler={handleInc}>⏭</SkipSetButton>
             </div>
+
             <span className="text-[9.5rem] sm:text-9xl">
                {mins < 10 && '0'}
                {mins}
@@ -226,15 +214,8 @@ function Timer() {
                {seconds < 10 && '0'}
                {seconds}
             </span>
-            <span
-               className={`text-5xl font-black ${
-                  isPreparing && 'text-yellow-200'
-               } ${isWorking && 'text-green-200'} ${
-                  isResting && 'text-[#cdc7e8]'
-               } ${isPreparing && isPaused ? 'text-yellowTextPaused' : ''} ${
-                  isWorking && isPaused ? 'text-green-300' : ''
-               } ${isResting && isPaused ? 'text-violetTextPaused' : ''}`}
-            >
+
+            <span className={messageStyle}>
                {isPreparing && 'PREPARE'}
                {isWorking && 'WORK'}
                {isResting && 'REST'}

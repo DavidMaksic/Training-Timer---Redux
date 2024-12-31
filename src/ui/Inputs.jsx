@@ -12,14 +12,14 @@ import {
    restIncrease,
 } from '../features/workouts/workoutSlice';
 
-import useCalcDisplayTime from '../hooks/useCalcDisplayTime';
-import Button from './Button';
+import Button from './buttons/Button';
+import { calcInputTime } from '../utils/helpers';
 
 function Inputs({ children }) {
    const timerDispatch = useDispatch();
    const workoutDispatch = useDispatch();
    const { sets, work, rest } = useSelector((store) => store.workouts);
-   const { minsWork, minsRest, secondsWork, secondsRest } = useCalcDisplayTime(
+   const { minsWork, minsRest, secondsWork, secondsRest } = calcInputTime(
       work,
       rest
    );
